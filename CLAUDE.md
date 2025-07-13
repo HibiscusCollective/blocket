@@ -4,44 +4,62 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-SinkChart is a plugin-based map management tool designed specifically for video game exploration. It is an alternative to pre-populated maps that spoil the exploration experience.
-It enables players to create, annotate and share game maps with unprecedented ease and precision. The platform addresses a critical gap in the gaming ecosystem by providing a clean, 
-intuitive interface where players can load blank game maps and enhance them with custom pins, detailed notes, and strategic annotations that can be saved locally and shared with others using a lightweight file format. 
+This is a polyglot monorepo template designed for modern software development. It provides a flexible foundation for building applications using multiple programming languages and technologies within a single repository structure.
 
-The core strength of SinkChart lies in its modular, plugin-based architecture that allows game-specific customization while maintaining a unified user experience across all supported titles.
-Each plugin can provide base maps for specific games along with tailored annotation types—whether that's marking loot spawns in survival games, 
-documenting raid strategies in MMORPGs, or sharing exploration discoveries in open-world adventures. 
-This approach ensures that SinkChart scales organically with the gaming community's needs while providing developers and content creators with the flexibility to extend functionality for emerging games and evolving player requirements.
+The template emphasizes:
+- **Cross-platform development** with consistent tooling across Windows, macOS, and Linux
+- **Modular architecture** supporting multiple backend services and frontend applications
+- **Automated setup** through intelligent bootstrap scripts
+- **Developer experience** with unified tool management and standardized workflows
 
 ## Current State
 
-- Initial workspace structure created with Cargo workspace
-- Basic crate structure for core, ui, tauri-app, plugins, common, and integrations
-- Development tooling configured (mise, mask, clippy, rustfmt)
-- Security tooling configured (cargo-audit, cargo-deny)
-- AGPLv3 license compliance setup
+- Polyglot monorepo structure with language-agnostic tooling
+- Java backend support with OpenJDK 21 and Gradle
+- Development tooling configured (mise for tool management)
 - Bootstrap scripts for cross-platform development setup
+- Security tooling and compliance setup
+- AGPLv3 license compliance
 
 ## Architecture
 
-SinkChart uses a **vertical slice architecture** with selective crate boundaries organized as a Cargo workspace:
+This template uses a **polyglot monorepo architecture** organized by technology domains:
 
-- **`sinkchart-core`**: Core business logic, map management, annotation system
-- **`sinkchart-ui`**: Dioxus UI components and layout management  
-- **`sinkchart-tauri-app`**: Tauri application shell and main entry point
-- **`sinkchart-common`**: Shared utilities, error handling, configuration
-- **`sinkchart-plugins`**: Plugin system and dynamic loading
-- **`sinkchart-integrations`**: External integrations (export/import, sync)
+- **`backend/`**: Backend services in various languages (Java, etc.)
+- **`frontend/`**: Frontend applications and shared UI components
+- **`shared/`**: Common libraries and utilities
+- **`scripts/`**: Build, deployment, and bootstrap scripts
+- **`docs/`**: Documentation and architectural decisions
+
+### Java Backend Modules
+
+Java backend services follow standard Gradle project structure:
+
+```
+backend/{module-name}/
+├── build.gradle           # Gradle build configuration
+├── src/
+│   ├── main/
+│   │   ├── java/          # Source code (com.example.{module})
+│   │   └── resources/     # Configuration files
+│   └── test/
+│       ├── java/          # Test code
+│       └── resources/     # Test resources
+└── README.md
+```
 
 ## Technology Stack
 
-- **Language**: Rust (stable toolchain)
-- **UI Framework**: Dioxus 0.6
-- **Desktop Framework**: Tauri 2.0
-- **Build System**: Cargo workspace
-- **Task Runner**: Mask (markdown-based)
-- **Tool Management**: mise
+### Core Tools
+- **Tool Management**: mise (unified tool version management)
+- **Task Runner**: Custom bootstrap scripts
 - **License**: AGPLv3-or-later
+
+### Java Backend
+- **Language**: Java (OpenJDK 21)
+- **Build System**: Gradle 8.11.1
+- **Testing**: JUnit 5 + AssertJ
+- **Logging**: SLF4J + Logback
 
 ## Development Setup
 
@@ -53,39 +71,52 @@ SinkChart uses a **vertical slice architecture** with selective crate boundaries
 # or
 .\scripts\bootstrap.ps1   # Windows
 
-# Common development commands
-mask build    # Build the project
-mask dev      # Run development server
-mask test     # Run tests
-mask lint     # Run clippy linter
-mask fmt      # Format code
-mask audit    # Security audit
+# The bootstrap process will automatically run all platform-specific scripts in scripts/bootstrap/
 ```
+
+### Java Backend Development
+
+The template includes Java backend support with an example project:
+
+- **`backend/java-example/`** - Complete Java project demonstrating the template structure
+- Bootstrap scripts validate Java development environment and existing projects
+- All Java projects use OpenJDK 21 and Gradle 8.11.1
 
 ### Project Structure
 
 ```
-sinkchart/
-├── crates/               # Rust crates
-│   ├── core/            # Core business logic
-│   ├── ui/              # Dioxus UI components
-│   ├── tauri-app/       # Tauri application shell
-│   ├── plugins/         # Plugin system
-│   ├── common/          # Shared utilities
-│   └── integrations/    # External integrations
+project-template/
+├── backend/              # Backend services
+│   └── java-example/    # Example Java project with Hello World
+├── frontend/            # Frontend applications
+├── shared/              # Shared libraries and utilities
 ├── scripts/             # Build and deployment scripts
+│   └── bootstrap/       # Platform-specific bootstrap scripts
 ├── docs/                # Documentation
-└── assets/              # Application assets
+└── mise.toml           # Tool version management
 ```
 
 ## Build Commands
 
-- **Development**: `mask dev` - Runs the Tauri development server
-- **Build**: `mask build` - Builds release version
-- **Test**: `mask test` - Runs all tests in workspace
-- **Lint**: `mask lint` - Runs clippy with strict settings
-- **Format**: `mask fmt` - Formats all code
-- **Audit**: `mask audit` - Security vulnerability scanning
+### Java Backend Modules
+
+Each Java module supports standard Gradle commands:
+
+```bash
+cd backend/java-example
+
+# Build the project
+gradle build
+
+# Run the application
+gradle run
+
+# Run tests
+gradle test
+
+# Clean build artifacts
+gradle clean
+```
 
 ## Key Development Practices
 
