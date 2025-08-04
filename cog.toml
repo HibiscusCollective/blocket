@@ -6,9 +6,11 @@ branch_whitelist = ["main", "master"]
 [git_hooks.pre-commit]
 script = """#!/bin/sh
 set -e
-mask fmt
-mask lint
-mask spellcheck
+just fmt
+just lint
+just spellcheck
+just test-quick
+just audit
 """
 
 [commit_types]
@@ -27,8 +29,9 @@ security = { changelog_title = "Security", omit_from_changelog = false }
 
 [bump_profiles.default]
 pre_bump_hooks = [
-    "mask security",
-    "mask test",
+    "just test",
+    "just tidy-tools",
+    "just tidy",
 ]
 post_bump_hooks = [
     "git push",
